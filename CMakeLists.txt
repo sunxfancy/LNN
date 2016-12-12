@@ -1,0 +1,40 @@
+﻿cmake_minimum_required(VERSION 3.4)
+project(LNN)
+
+SET(VERSION_MAJOR "0")
+SET(VERSION_MINOR "1")
+SET(VERSION_PATCH "0")
+
+find_package(Boost REQUIRED)
+IF (Boost_FOUND)
+    INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIR})
+    ADD_DEFINITIONS( "-DHAS_BOOST" )
+ENDIF()
+
+
+include_directories(/usr/include/lua5.3
+                    src
+                    ${CMAKE_CURRENT_SOURCE_DIR}/extlib/include)
+
+LINK_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/extlib/lib)
+
+SET (CMAKE_BUILD_TYPE Debug) # 默认构建Debug模式
+
+## 配置输出目录
+set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lua )
+set( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lua )
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lua )
+
+## 配置编译器
+SET (CMAKE_CXX_COMPILER_ENV_VAR "clang++")
+SET (CMAKE_CXX_FLAGS_DEBUG   "-g")
+SET (CMAKE_CXX_FLAGS_MINSIZEREL  "-Os -DNDEBUG")
+SET (CMAKE_CXX_FLAGS_RELEASE  "-O4 -DNDEBUG")
+SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+SET (CMAKE_CXX_FLAGS "-std=c++11")
+
+file(GLOB_RECURSE source_files ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c)
+
+add_library(lnn SHARED ${source_files})
+
+TARGET_LINK_LIBRARIES(lnn oolua)
