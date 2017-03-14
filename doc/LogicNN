@@ -1,0 +1,7 @@
+LogicNN
+================
+
+It's an special NN with logic gate as a function. There is no float weight matrix and no output function. But it still can represent any function.
+
+
+这是在模仿数字电路中的逻辑，

@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC -std=c++11 -g  -shared -Wl,-soname,liblnn.so -o ../lua/liblnn.so CMakeFiles/lnn.dir/src/main.cpp.o  -L/home/sxf/Workspace/LNN/project/extlib/lib -loolua -Wl,-rpath,/home/sxf/Workspace/LNN/project/extlib/lib 

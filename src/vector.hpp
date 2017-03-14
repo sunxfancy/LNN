@@ -3,7 +3,7 @@
 * @Date:   2016-09-22
 * @Email:  sunxfancy@gmail.com
 * @Last modified by:   sxf
-* @Last modified time: 2016-12-11
+* @Last modified time: 2016-12-12
 * @License: MIT License
 */
 
@@ -55,11 +55,11 @@ public:
     }
 
     BoolVec* mul(BoolMat* mat, bool is_and, BoolVec* ans) {
-        if (ans == nullptr) ans = new BoolVec(mat->size_y());
+        if (ans == nullptr) ans = new BoolVec();
         for (auto vec : mat->data) {
             if (is_and) {
-                boolvec p = data | ~vec;
-                ans->add(p.all());
+                boolvec p = data & vec;
+                ans->add((p == vec) && p.any());
             } else {
                 boolvec p = data & vec;
                 ans->add(p.any());
@@ -71,7 +71,7 @@ public:
     std::string to_string() const {
         std::string ans;
         ans += std::to_string(data.size());
-        ans += '{';
+        ans += " {";
         for (int i = 0; i < data.size(); ++i) {
             if (get(i)) ans += " 1";
             else ans += " 0";

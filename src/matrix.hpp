@@ -3,7 +3,7 @@
 * @Date:   2016-09-22
 * @Email:  sunxfancy@gmail.com
 * @Last modified by:   sxf
-* @Last modified time: 2016-12-11
+* @Last modified time: 2016-12-12
 * @License: MIT License
 */
 
@@ -34,12 +34,12 @@ public:
     }
 
     BoolMat* set(int x, int y, bool a) {
-        data[x][y] = a;
+        data[y][x] = a;
         return this;
     }
 
     bool get(int x, int y) const {
-        return data[x][y];
+        return data[y][x];
     }
 
     int size_x() const {
@@ -51,19 +51,19 @@ public:
 
     std::string to_string() const {
         std::string ans;
-        ans += "BoolMat";
+        ans += "BoolMat ";
         ans += std::to_string(x);
         ans += " x ";
         ans += std::to_string(y);
-        ans += "'\n[";
+        ans += "\n[";
         for (int i = 0; i < x; ++i) {
             for (int j = 0; j < y; ++j) {
                 if (get(i, j)) ans += " 1";
                 else ans += " 0";
             }
-            ans += '\n';
+            if (i != x-1) ans += "\n ";
         }
-        ans += "]\n";
+        ans += " ]\n";
         return ans;
     }
 
@@ -109,7 +109,7 @@ public:
 
 private:
     int x, y;
-    std::vector<std::vector<char> > data;
+    std::vector< std::vector<char> > data;
 };
 
 #endif /* end of include guard: BOOLMATRIX_HPP */
